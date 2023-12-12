@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
@@ -8,23 +9,48 @@
 
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
 	{% if title %}
-		<title>Flask Blog - {{ title }}</title>
+		<title>TomH Personal Website - {{ title }}</title>
 	{% else %}
-		<title>Flask Blog</title>
+		<title>TomH Personal Website</title>
 	{% endif %}
 </head>
 <body>
-	<header class="site-header">
-	  <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+<div class="container-fluid">
+    <header class="site-header">
+      <div class="container">
+        <div class="row justify-content-between align-items-center">
+          <div class="col-xs-12 col-md-3 col-xl-2 text-center text-md-left">
+            <img class="rounded-circle header-img" src="{{ url_for('static', filename='profile_pics/default2.jpg') }}">
+          </div> 
+          <div class="col-xs-12 col-md-7 col-xl-8 text-center text-md-left">
+            <h1>Thomas J Hickey </h1>
+            <h3><small>Firmware Dev, Cat Lover</small></h3>
+
+            <a href="https://www.linkedin.com/in/ramilaleskerov/" class="bi bi-linkedin">
+            </a>
+            <a href="https://github.com/Mathemmagician" class="btn btn-social-icon btn-github">
+              <span class="fa fa-github"></span>
+            </a>
+            <a href="https://twitter.com/Mathemmagician" class="btn btn-social-icon btn-twitter">
+              <span class="fa fa-twitter"></span>
+            </a>
+          </div> 
+        </div>
+      </div>
+    </header>
+	<div class="site-navbar pt-2">
+	  <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
 	    <div class="container">
-	      <a class="navbar-brand mr-4" href="/">Flask Blog</a>
+	      <a class="navbar-brand mr-4" href="{{ url_for('main.home') }}">Home</a>
 	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="navbar-toggler-icon"></span>
 	      </button>
 	      <div class="collapse navbar-collapse" id="navbarToggle">
 	        <div class="navbar-nav mr-auto">
-	          <a class="nav-item nav-link" href="{{ url_for('main.home') }}">Home</a>
-	          <a class="nav-item nav-link" href="{{ url_for('main.about') }}">About</a>
+	          <a class="nav-item nav-link" href="{{ url_for('main.about') }}">Resume</a>
+	          <a class="nav-item nav-link" href="{{ url_for('main.blog') }}">Blog</a>
+	          <a class="nav-item nav-link" href="{{ url_for('main.workout') }}">Enter Workout</a>
+	          <a class="nav-item nav-link" href="{{ url_for('main.view_workout') }}">View Workouts</a>
 	        </div>
 	        <!-- Navbar Right Side -->
 	        <div class="navbar-nav">
@@ -40,8 +66,9 @@
 	      </div>
 	    </div>
 	  </nav>
-	</header>
-	<main role="main" class="container">
+	</div>
+</div>
+	<main role="main" class="container pt-3">
 	  <div class="row">
 	    <div class="col-md-8">
 	    	{% with messages = get_flashed_messages(with_categories=true) %}

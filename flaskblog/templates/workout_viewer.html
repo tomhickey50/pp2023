@@ -1,3 +1,56 @@
 {% extends "layout.html" %}
 {% block content %}
+<h2><b>View workouts</b></h2>
+<hr>
+<div class="container">
+    {% for workout in workouts %}
+        <div class="row">
+            <div class="col-md-12">
+                <h4><b>Date: {{ workout.date_posted.strftime('%Y-%m-%d') }}, Total Lifted: {{ workout.total_load }}</b></h4>
+                <canvas id='myChart' width='800' height='300'></canvas>
+            </div>
+        </div>
+        <br>
+        <hr>
+        <br>
+    {% endfor %}
+</div>
 {% endblock content %}
+
+{% block tail %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+	function buildChart(id, dates, loads){
+		var ctx = document.getElementById("myChart").getContext("2d")
+		var dhtChart = new Chart(ctx, {
+				type: 'line',
+				data:{
+					labels: dates,
+					datasets: [
+						{
+							label: "Total Load (lb)",
+							borderColor: "rgba(255, 255, 0, 1)",
+                            fillColor: "rgba(225, 225, 0, 1)",
+                            strokeColor: "rgba(220,220,220,1)",
+                            pointColor: "rgba(225, 225, 0, 1)",
+                            pointStrokeColor: "#fff",
+                            pointHighlightFill: "#fff",
+                            pointHighlightStroke: "rgba(220,220,220,1)",
+                            data: weight
+						}
+					]
+				},
+				Options: {
+
+				}
+			});
+	}
+	$(document).ready(function() {
+            {% for workout in workouts %}
+                buildChart('myChart', 
+                ["{{ workout.date_posted|join('\",\"', attribute='time')|safe }}"], 
+                ["{{ workout.total_load|join(',', attribute='total_weight') }}"]);
+            {% endfor %}
+        });
+</script>
+{% endblock tail %}
